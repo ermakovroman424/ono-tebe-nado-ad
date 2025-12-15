@@ -14,9 +14,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Check if the repository is private
-        run: exit 1
-        if: ${{github.event.repository.private}}
+        run: |
+          if ${{ github.event.repository.private }}; then
+            echo "Репозиторий является приватным."
+          else
+            echo "Репозиторий общедоступный."
+          fi
       - name: Tests
         uses: Yandex-Practicum/test-project-action@v1
         with:
           project: 'ono-tebe-nado-ad'
+
